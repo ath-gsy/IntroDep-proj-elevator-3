@@ -92,11 +92,17 @@ PersonList* enterElevator(Elevator *e, PersonList *waitingList)
 }
 
 void stepElevator(Building *b)
-{//printf("entered1\n");
-    if(b->elevator->currentFloor != b->elevator->targetFloor)
+{    
+    while(b->elevator->currentFloor != b->elevator->targetFloor)
     {
-        //printf("entered2\n");
-        b->elevator->currentFloor = b->elevator->targetFloor;
+        if(b->elevator->targetFloor < b->elevator->currentFloor)
+        {
+            b->elevator->currentFloor -= 1;
+        }
+        else
+        {
+            b->elevator->currentFloor += 1;
+        }
 
         PersonList* exitPerson = exitElevator(b->elevator->persons, b->elevator->currentFloor);
 
@@ -106,10 +112,8 @@ void stepElevator(Building *b)
 
         //printf("end\n");
         //printList(b->waitingLists[b->elevator->currentFloor]);
-
-
-
     }
+    
     
 
 }
